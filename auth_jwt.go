@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
+	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
-	"gopkg.in/dgrijalva/jwt-go.v3"
 )
 
 // MapClaims type that uses the map[string]interface{} for JSON decoding
@@ -384,7 +384,7 @@ func (mw *GinJWTMiddleware) LoginHandler(c *gin.Context) {
 	if mw.SendCookie {
 		maxage := int(expire.Unix() - time.Now().Unix())
 		c.SetCookie(
-			"JWTToken",
+			"jwt",
 			tokenString,
 			maxage,
 			"/",
@@ -445,7 +445,7 @@ func (mw *GinJWTMiddleware) RefreshHandler(c *gin.Context) {
 	if mw.SendCookie {
 		maxage := int(expire.Unix() - time.Now().Unix())
 		c.SetCookie(
-			"JWTToken",
+			"jwt",
 			tokenString,
 			maxage,
 			"/",
