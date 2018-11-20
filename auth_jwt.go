@@ -110,6 +110,9 @@ type GinJWTMiddleware struct {
 
 	// SendAuthorization allow return authorization header for every request
 	SendAuthorization bool
+
+	// CookieDomain is the domain for sent cookie
+	CookieDomain string
 }
 
 var (
@@ -388,7 +391,7 @@ func (mw *GinJWTMiddleware) LoginHandler(c *gin.Context) {
 			tokenString,
 			maxage,
 			"/",
-			"",
+			mw.CookieDomain,
 			mw.SecureCookie,
 			true,
 		)
@@ -449,7 +452,7 @@ func (mw *GinJWTMiddleware) RefreshHandler(c *gin.Context) {
 			tokenString,
 			maxage,
 			"/",
-			"",
+			mw.CookieDomain,
 			mw.SecureCookie,
 			true,
 		)
