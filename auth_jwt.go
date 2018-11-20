@@ -113,6 +113,9 @@ type GinJWTMiddleware struct {
 
 	// CookieDomain is the domain for sent cookie
 	CookieDomain string
+
+	// CookieHTTPOnly is the http only option for sent cookie
+	CookieHTTPOnly bool
 }
 
 var (
@@ -393,7 +396,7 @@ func (mw *GinJWTMiddleware) LoginHandler(c *gin.Context) {
 			"/",
 			mw.CookieDomain,
 			mw.SecureCookie,
-			true,
+			mw.CookieHTTPOnly,
 		)
 	}
 
@@ -454,7 +457,7 @@ func (mw *GinJWTMiddleware) RefreshHandler(c *gin.Context) {
 			"/",
 			mw.CookieDomain,
 			mw.SecureCookie,
-			true,
+			mw.CookieHTTPOnly,
 		)
 	}
 
